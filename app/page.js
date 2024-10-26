@@ -4,7 +4,6 @@ import circel from "../public/R-tron.png";
 import image from "../public/image.png";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-
 export default function Home() {
   const [status, setStatus] = useState(true);
   const [hasRedirected, setHasRedirected] = useState(false);
