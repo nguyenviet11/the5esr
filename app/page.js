@@ -33,8 +33,8 @@ export default function Home() {
   },[])
   return (
     <div
-      onMouseMove={status ? handleMouseMove : null}
-      onClick={!status ? handleClick : null}
+      // onMouseMove={status ? handleMouseMove : null}
+      // onClick={!status ? handleClick : null}
     >
       <main className={styles.main}>
         <h3 className={styles.text}>
